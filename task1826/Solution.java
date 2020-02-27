@@ -9,17 +9,24 @@ import java.io.*;
 public class Solution {
 
     public static void main(String[] args) throws IOException {
+        try {
+            String sourceFileName = args[1];
+            String targetFileName = args[2];
 
-        String sourceFileName = args[1];
-        String targetFileName = args[2];
-
-        if ((args[0].equals("-e")) || (args[0].equals("-d"))){
-            byte[] data = readFromFile(sourceFileName); //read source file
-            byte[] encData = processData(data);  //encrypt data from source
-            writeToFile(targetFileName, encData); //write encrypted data to separate file
+            if ((args[0].equals("-e")) || (args[0].equals("-d"))) {
+                byte[] data = readFromFile(sourceFileName); //read source file
+                byte[] encData = processData(data);  //encrypt data from source
+                writeToFile(targetFileName, encData); //write encrypted data to separate file
+            } else System.out.println("Wrong Argument, use -e for encrypt or -d for decrypt");
         }
-        else System.out.println("Wrong Argument, use -e for encrypt or -d for decrypt");
-        if(args[1] == null || args[2] == null) System.out.println("source or target files arguments not present ");
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println(" wrong arguments, use:");
+            System.out.println(" [option] [source file] [target file]");
+            System.out.println(" options:");
+            System.out.println(" -e encrypt");
+            System.out.println(" -d decrypt");
+        }
+
     }
 
     public static byte[] processData(byte[] data){
@@ -34,6 +41,7 @@ public class Solution {
         }
         return encData;
     }
+
     public static void writeToFile(String fileName, byte[] data) throws IOException{
 
 
@@ -42,6 +50,7 @@ public class Solution {
         fileOutputStream.write(data);
         fileOutputStream.close();
     }
+
     public static byte[] readFromFile(String fileName) throws IOException{
 
         FileInputStream fileInputStream = new FileInputStream(fileName);
