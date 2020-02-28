@@ -38,7 +38,7 @@ public class Solution {
                     writeToFile(id, productName, price, quantity, filename);
                     break;
                 default:
-                    System.out.println("Usage: -c id productName price quantity");
+                    System.out.println("Usage: -c productName price quantity");
             }
         }
         catch (ArrayIndexOutOfBoundsException e){
